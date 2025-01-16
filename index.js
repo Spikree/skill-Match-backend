@@ -7,6 +7,7 @@ import resetpassword from "./routes/usersettings/resetpassword.js";
 import {createJob} from "./routes/createJob/createJob.js"
 import { submitProposal } from "./routes/applyJob/applyJob.js";
 import { getJobProposals } from "./routes/fetchJobProposals/getProposals.js";
+import getJobs from "./routes/fetchJobs/fetchjobs.js";
 
 dotenv.config();
 
@@ -21,6 +22,7 @@ app.use("/profile",resetpassword)
 app.use("/job", createJob)
 app.use("/proposal", submitProposal)
 app.use("/job",getJobProposals)
+app.use("/job",getJobs)
 
 app.use("/", (req,res) => {
     res.json("backend is working")
