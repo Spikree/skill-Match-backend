@@ -1,7 +1,6 @@
 import express from "express"
 import Job from "../../models/posting.js";
 import verifyToken from "../../utils/verifyToken.js";
-import { get } from "mongoose";
 
 const getJobs = express.Router();
 
@@ -15,12 +14,15 @@ getJobs.get("/getJobs/", verifyToken, async(req,res) => {
 
         const cancelledJobs = await Job.find({status: "cancelled"});
 
+        const jobsInProgress = await Job.find({status: "in progress"})
+
         return res.status(200).json({
             message: "Fetched all jobs sucessfully",
             jobs,
             completedJobs,
             cancelledJobs,
             closedJobs,
+            jobsInProgress
         })
     } catch (error) {
         return res.status(400).json({

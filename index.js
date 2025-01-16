@@ -8,6 +8,7 @@ import {createJob} from "./routes/createJob/createJob.js"
 import { submitProposal } from "./routes/applyJob/applyJob.js";
 import { getJobProposals } from "./routes/fetchJobProposals/getProposals.js";
 import getJobs from "./routes/fetchJobs/fetchjobs.js";
+import saveJob from "./routes/saveJobListing/saveJobListing.js";
 
 dotenv.config();
 
@@ -23,6 +24,7 @@ app.use("/job", createJob)
 app.use("/proposal", submitProposal)
 app.use("/job",getJobProposals)
 app.use("/job",getJobs)
+app.use("/job",saveJob);
 
 app.use("/", (req,res) => {
     res.json("backend is working")
