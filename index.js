@@ -11,12 +11,15 @@ import getJobs from "./routes/fetchJobs/fetchjobs.js";
 import saveJob from "./routes/saveJobListing/saveJobListing.js";
 import acceptProposal from "./routes/acceptProposal/acceptProposal.js"
 import cancelAcceptedProposal from "./routes/cancelAcceptedProposal/cancelAcceptedProposal.js"
+import cors from "cors"
+import finished from "./routes/finishedJobs/finishedJob.js";
 
 dotenv.config();
 
 connectDb();
 
 const app = express();
+app.use(cors())
 app.use(express.json());
 
 app.use("/auth",auth);
@@ -29,6 +32,7 @@ app.use("/job",getJobs)
 app.use("/job",saveJob);
 app.use("/job",acceptProposal)
 app.use("/job",cancelAcceptedProposal)
+app.use("/job",finished);
 
 app.use("/", (req,res) => {
     res.json("backend is working")
