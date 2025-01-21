@@ -1,12 +1,12 @@
 import express from "express";
 import verifyToken from "../../utils/verifyToken.js";
 import savedJobs from "../../models/savedJobs.js";
+import Job from "../../models/posting.js"
 
 const saveJob = express.Router();
 
 saveJob.post("/saveJob/:jobId", verifyToken, async (req, res) => {
   const jobId = req.params.jobId;
-  const { jobTitle, jobDescription } = req.body;
   const { user } = req.user;
 
   if (!user) {
@@ -15,19 +15,30 @@ saveJob.post("/saveJob/:jobId", verifyToken, async (req, res) => {
     });
   }
 
-  if (!jobDescription || !jobTitle || !jobId) {
+  if (!jobId) {
     return res.status(400).json({
-      message: "jobDescription , jobTitle and jobId are required",
+      message: "jobId are required",
     });
   }
 
   try {
-    const existingJob = await savedJobs.findOne({ jobId, freelancer: user });
+    const existingJob = await savedJobs.findOne({ jobId, freelancer: user._id });
 
     if (existingJob) {
       await savedJobs.deleteOne({ jobId: jobId });
       return res.status(200).json({ message: "Job removed from saved jobs." });
     }
+
+    const getJob = await Job.findById(jobId)
+
+    if(!getJob) {
+      return res.status(404).json({
+        message: "Job not found"
+      })
+    }
+
+    const jobTitle = getJob.title;
+    const jobDescription = getJob.description;
 
     const savedJob = await savedJobs.create({
       jobId: jobId,
@@ -60,13 +71,13 @@ saveJob.get("/getSavedJobs", verifyToken, async (req, res) => {
   }
 
   try {
-    const savedBlogs = await savedJobs.find({
+    const allSavedJobs = await savedJobs.find({
       freelancer: user,
     });
 
     return res.status(200).json({
       message: "Fetched saved Jobs",
-      savedBlogs,
+      allSavedJobs,
     });
   } catch (error) {
     return res.status(400).json({

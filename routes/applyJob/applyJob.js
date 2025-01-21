@@ -63,11 +63,11 @@ submitProposal.get("/getAppliedJobs", verifyToken, async (req,res) => {
     try {
         const appliedJobs = await Proposal.find({freelancer: user._id})
 
-        if(!appliedJobs || appliedJobs.length === 0){
-            return res.status(400).json({
-                message: "No Jobs found"
-            })
-        }
+        // if(!appliedJobs || appliedJobs.length === 0){
+        //     return res.status(200).json({
+        //         message: "No Jobs found"
+        //     })
+        // }
 
         return res.status(200).json({
             message: "Fetched Applied Jobs",
