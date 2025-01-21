@@ -3,6 +3,7 @@ import verifyToken from "../../utils/verifyToken.js";
 import checkEmployerRole from "../../utils/checkEmployerRole.js";
 import Job from "../../models/posting.js";
 import Proposal from "../../models/proposal.js";
+import currentJob from "../../models/currentJob.js";
 
 const cancelAcceptedProposal = express.Router();
 
@@ -44,6 +45,11 @@ cancelAcceptedProposal.post("/cancelAcceptedProposal/:jobId/:proposalId",verifyT
         },{
             status: "pending"
         })
+
+        await currentJob.deleteOne({
+            userId: user._id,
+            jobId: jobId,
+        });
 
         return res.status(200).json({
             message: "Acceptance cancelled. The job is now open for new proposals"

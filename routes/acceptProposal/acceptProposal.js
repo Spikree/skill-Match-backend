@@ -3,6 +3,7 @@ import verifyToken from "../../utils/verifyToken.js";
 import checkEmployerRole from "../../utils/checkEmployerRole.js";
 import Job from "../../models/posting.js";
 import Proposal from "../../models/proposal.js";
+import currentJob from "../../models/currentJob.js";
 
 const acceptProposal = express.Router();
 
@@ -53,6 +54,17 @@ acceptProposal.post(
 
       job.status = "in progress"
       await job.save()
+
+      const currJob = new currentJob({
+        jobId: jobId,
+        userId: user._id,
+        jobTitle: job.title,
+        jobDescription: job.description,
+        employer: job.employer,
+        payCheck: proposal.bidAmount
+      })
+
+      currJob.save()
 
       return res.status(200).json({
         message: "Proposal accepted sucessfully",
