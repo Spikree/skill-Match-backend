@@ -38,10 +38,11 @@ finished.post("/markFinished/:jobId", verifyToken, async (req, res) => {
       });
     }
 
-    const finJob = await FinishedJob.find({
+    const finJob = await FinishedJob.findOne({
       jobId: job._id,
       freelancer: currJob.freelancer,
     })
+
 
     if(finJob) {
       return res.status(400).json({

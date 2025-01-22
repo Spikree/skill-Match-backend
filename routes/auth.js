@@ -39,9 +39,10 @@ auth.post("/register", async (req, res) => {
 
     const token = jwt.sign(
       {
-        newUser,
+        user: newUser,
       },
       process.env.JWT_SECRET,
+
       {
         expiresIn: "1h",
       }
@@ -50,7 +51,7 @@ auth.post("/register", async (req, res) => {
     await newUser.save();
 
     return res.json({
-      newUser,
+      user: newUser,
       token,
       message: "Registration successful",
     });
@@ -71,41 +72,45 @@ auth.post("/login", async (req, res) => {
     });
   }
 
-  const user = await User.findOne({ email });
-  if (!user) {
+  try {
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(400).json({
+        message: "User with this email not found",
+      });
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password);
+
+    if (!isMatch) {
+      return res.status(400).json({
+        message: "Invalid credentials",
+      });
+    }
+
+    if (user && isMatch) {
+      const token = jwt.sign(
+        {
+          user,
+        },
+        process.env.JWT_SECRET,
+        {
+          expiresIn: "1h",
+        }
+      );
+
+      return res
+        .json({
+          user,
+          token,
+          message: "Sucessfully LoggedIn",
+        })
+        .status(200);
+    }
+  } catch (error) {
     return res.status(400).json({
-      message: "User with this email not found",
+      message: "Internal server error",
     });
-  }
-
-  const isMatch = await bcrypt.compare(password, user.password);
-
-  if (!isMatch) {
-    return res.status(400).json({
-      message: "Invalid credentials",
-    });
-  }
-
-  if (user && isMatch) {
-    const token = jwt.sign(
-      {
-        user,
-      },
-      process.env.JWT_SECRET,
-      {
-        expiresIn: "1h",
-      }
-    );
-
-    return res
-      .json({
-        user,
-        token,
-        message: "Sucessfully LoggedIn",
-      })
-      .status(200);
-  } else {
-    return res.status;
   }
 });
 
