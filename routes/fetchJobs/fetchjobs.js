@@ -87,8 +87,8 @@ getJobs.get("/getJobs", verifyToken, async (req, res) => {
     }
 
     try {
-      const currJob = await currentJob.findOne({
-        userId: user._id,
+      const currJob = await currentJob.find({
+        freelancer: user._id,
       })
 
       if(!currJob) {

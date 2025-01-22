@@ -57,7 +57,7 @@ acceptProposal.post(
 
       const currJob = new currentJob({
         jobId: jobId,
-        userId: user._id,
+        freelancer: proposal.freelancer,
         jobTitle: job.title,
         jobDescription: job.description,
         employer: job.employer,
