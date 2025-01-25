@@ -13,6 +13,7 @@ import acceptProposal from "./routes/acceptProposal/acceptProposal.js";
 import cancelAcceptedProposal from "./routes/cancelAcceptedProposal/cancelAcceptedProposal.js";
 import cors from "cors";
 import finished from "./routes/finishedJobs/finishedJob.js";
+import getOnGoingJob from "./routes/fetchJobs/fetchOnGoingJobs.js";
 
 dotenv.config();
 
@@ -35,6 +36,7 @@ app.use("/job", saveJob);
 app.use("/job", acceptProposal);
 app.use("/job", cancelAcceptedProposal);
 app.use("/job", finished);
+app.use("/job", getOnGoingJob);
 
 app.use("/", (req, res) => {
   res.json("backend is working");
