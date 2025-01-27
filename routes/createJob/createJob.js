@@ -55,6 +55,7 @@ createJob.put(
       return res.status(400).json({ message: "Job ID is required." });
     }
 
+
     const validStatuses = ["open", "in progress", "completed", "cancelled"];
     if (!status || !validStatuses.includes(status)) {
       return res.status(400).json({

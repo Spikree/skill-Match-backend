@@ -4,11 +4,12 @@ import verifyToken from "../../utils/verifyToken.js";
 import FinishedJob from "../../models/finishedJob.js";
 import currentJob from "../../models/currentJob.js";
 import proposal from "../../models/proposal.js";
+import checkEmployerRole from "../../utils/checkEmployerRole.js";
+
 const finished = express.Router();
 
-finished.post("/markFinished/:jobId", verifyToken, async (req, res) => {
+finished.post("/markFinished/:jobId", verifyToken,checkEmployerRole, async (req, res) => {
   const { jobId } = req.params;
-
 
   try {
     const job = await Job.findById(jobId);
