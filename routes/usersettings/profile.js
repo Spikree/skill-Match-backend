@@ -1,7 +1,6 @@
 import express from "express";
 import verifyToken from "../../utils/verifyToken.js";
 import User from "../../models/user.js";
-import user from "../../models/user.js";
 
 const profile = express.Router();
 

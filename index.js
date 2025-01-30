@@ -16,6 +16,7 @@ import finished from "./routes/finishedJobs/finishedJob.js";
 import getOnGoingJob from "./routes/fetchJobs/fetchOnGoingJobs.js";
 import fetchCreatedJobs from "./routes/fetchJobs/fetchCreatedJobs.js";
 import review from "./routes/review/review.js";
+import visitProfile from "./routes/usersettings/visitProfileDetails.js";
 
 dotenv.config();
 
@@ -41,6 +42,7 @@ app.use("/job", finished);
 app.use("/job", getOnGoingJob);
 app.use("/job", fetchCreatedJobs);
 app.use("/review", review);
+app.use("/profile",visitProfile);
 
 app.use("/", (req, res) => {
   res.json("backend is working");
