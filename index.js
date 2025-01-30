@@ -15,6 +15,7 @@ import cors from "cors";
 import finished from "./routes/finishedJobs/finishedJob.js";
 import getOnGoingJob from "./routes/fetchJobs/fetchOnGoingJobs.js";
 import fetchCreatedJobs from "./routes/fetchJobs/fetchCreatedJobs.js";
+import review from "./routes/review/review.js";
 
 dotenv.config();
 
@@ -38,7 +39,8 @@ app.use("/job", acceptProposal);
 app.use("/job", cancelAcceptedProposal);
 app.use("/job", finished);
 app.use("/job", getOnGoingJob);
-app.use("/job", fetchCreatedJobs)
+app.use("/job", fetchCreatedJobs);
+app.use("/review", review);
 
 app.use("/", (req, res) => {
   res.json("backend is working");
