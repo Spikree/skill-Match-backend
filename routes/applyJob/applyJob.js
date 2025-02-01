@@ -14,6 +14,7 @@ submitProposal.post("/submit/:id", verifyToken, async (req, res) => {
     return res.status(400).json({ message: "Please enter a bid amount" });
   }
 
+  console.log(user._id)
   if (!coverLetter) {
     return res.status(400).json({ message: "Please enter a cover letter" });
   }
@@ -40,7 +41,7 @@ submitProposal.post("/submit/:id", verifyToken, async (req, res) => {
 
     const proposal = new Proposal({
       job: id,
-      freelancer: user,
+      freelancer: user._id,
       bidAmount: bidAmount,
       coverLetter: coverLetter,
     });
