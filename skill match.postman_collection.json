@@ -1,0 +1,649 @@
+{
+	"info": {
+		"_postman_id": "80f0da1f-ac1a-4625-aecd-0b3230b028a0",
+		"name": "skill match",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "37655651"
+	},
+	"item": [
+		{
+			"name": "create user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\" : \"apple@gmail.com\",\r\n    \"password\" : \"12345678\",\r\n    \"role\": \"employer\",\r\n    \"name\": \"Apple Inc\",\r\n    \"portfolio\": \"123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/auth/register",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\":\"google@gmail.com\",\r\n    \"password\":\"123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/auth/login",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "edit profile",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"avishkar\",\r\n    \"bio\": \"Hello world\",\r\n    \"skills\":[\"Next js\",\"mongoDb\",\"express\",\"node\",\"react js\",\"vue js\", \"react native\"],\r\n    \"portfolio\": \"Avi.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/profile/edit",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"profile",
+						"edit"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "reset password",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"oldPassword\" : \"1234567811\",\r\n    \"newPassword\" : \"12345678\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/profile/resetpassword",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"profile",
+						"resetpassword"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create job",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"fullstack Developer\",\r\n    \"description\":\"About Us: We are a growing technology company looking for a passionate Full Stack Developer to join our team. In this role, you will work on both the front-end and back-end of our applications, creating robust, scalable, and user-friendly solutions. You will collaborate with cross-functional teams to deliver seamless and efficient web applications.About Us: We are a growing technology company looking for a passionate Full Stack Developer to join our team. In this role, you will work on both the front-end and back-end of our applications, creating robust, scalable, and user-friendly solutions. You will collaborate with cross-functional teams to deliver seamless and efficient web applications. About Us: We are a growing technology company looking for a passionate Full Stack Developer to join our team. In this role, you will work on both the front-end and back-end of our applications, creating . \",\r\n    \"budget\": \"$80000\",\r\n    \"skillsRequired\":[\"react\", \"vue\", \"angular\"]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/job/createJob",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"job",
+						"createJob"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "apply job",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"bidAmount\":\"40000\",\r\n    \"coverLetter\": \"Hello world\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/proposal/submit/6787b63a0bfe0d2d9921fdfd",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"proposal",
+						"submit",
+						"6787b63a0bfe0d2d9921fdfd"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get job proposals",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/job/getproposals/6790d1d1d168c8254ce493d2",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"job",
+						"getproposals",
+						"6790d1d1d168c8254ce493d2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get jobs",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/job/getJobs",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"job",
+						"getJobs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "edit job status",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"status\" : \"completed\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/job/editStatus/6790d1d1d168c8254ce493d2",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"job",
+						"editStatus",
+						"6790d1d1d168c8254ce493d2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get a job",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/job/getJob/678f31476c59149647e9bcfa",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"job",
+						"getJob",
+						"678f31476c59149647e9bcfa"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "save a job",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/job/saveJob/678e7398c8cb5d77eb4f5a38",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"job",
+						"saveJob",
+						"678e7398c8cb5d77eb4f5a38"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get saved jobs",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/job/getSavedJobs",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"job",
+						"getSavedJobs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "accept proposal",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/job/acceptProposal/6790d1d1d168c8254ce493d2/6790e9a7ccaaaefad5300702",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"job",
+						"acceptProposal",
+						"6790d1d1d168c8254ce493d2",
+						"6790e9a7ccaaaefad5300702"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "cancel accepted proposal",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/job/cancelAcceptedProposal/678e7398c8cb5d77eb4f5a38/678f31476c59149647e9bcfa",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"job",
+						"cancelAcceptedProposal",
+						"678e7398c8cb5d77eb4f5a38",
+						"678f31476c59149647e9bcfa"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create a chat",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"users\": [\"EmployerId\", \"FreelancerId\"]\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/chat/create",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"chat",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "mark job finish",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/job/markFinished/6790d1d1d168c8254ce493d2",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"job",
+						"markFinished",
+						"6790d1d1d168c8254ce493d2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get finishedJobs",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/job/getFinishedJobs",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"job",
+						"getFinishedJobs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get applied jobs/proposals",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/proposal/getAppliedJobs",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"proposal",
+						"getAppliedJobs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get user",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/profile/getUser",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"profile",
+						"getUser"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get current job",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/job/getCurrentJob",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"job",
+						"getCurrentJob"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get on going jobs",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/job/getOnGoingJobs",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"job",
+						"getOnGoingJobs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all created jobs",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/job/getCreatedJobs",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"job",
+						"getCreatedJobs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "post review",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"rating\":\"4\",\r\n    \"review\" : \"Very nice company to work with, nice work experience\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/review/post/6790eca80f5ad123cbae35bd",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"review",
+						"post",
+						"6790eca80f5ad123cbae35bd"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get reviews",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/review/getReviews/6790ec490f5ad123cbae35b1",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"review",
+						"getReviews",
+						"6790ec490f5ad123cbae35b1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete review",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/review/deleteReview/679b2b02d2ac9248c3b17704",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"review",
+						"deleteReview",
+						"679b2b02d2ac9248c3b17704"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"newRating\": 5,\r\n    \"NewReview\": \"Hello world world\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/review/edit/679b2b02d2ac9248c3b17704",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"review",
+						"edit",
+						"679b2b02d2ac9248c3b17704"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "visit profile",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/profile/getUserProfile/6799d34556c1a17d20d6871c",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"profile",
+						"getUserProfile",
+						"6799d34556c1a17d20d6871c"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InByb2ZpbGUiOnsibmFtZSI6Ikdvb2dsZSBJbmMiLCJza2lsbHMiOltdLCJwb3J0Zm9saW8iOiIiLCJyYXRpbmciOjB9LCJfaWQiOiI2Nzk5ZDM0NTU2YzFhMTdkMjBkNjg3MWMiLCJlbWFpbCI6Imdvb2dsZUBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYSQxMCRaUGNDNzQ2U0JZb3M1aDBOMUswUUJPa1l2cm94emJsYWYvQTJuTENSUEdELjFVM2dKWEgvdSIsInJvbGUiOiJlbXBsb3llciIsImNyZWF0ZWRPbiI6IjIwMjUtMDEtMjlUMDc6MDQ6MDYuMTYyWiIsIl9fdiI6MH0sImlhdCI6MTczODMwNzM0MSwiZXhwIjoxNzM4MzEwOTQxfQ.jfartMVmm8ku2QzupLqS30eTZ4oft1ATrUZtx8-DZkA",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "host",
+			"value": "http://localhost:4000",
+			"type": "string"
+		}
+	]
+}
