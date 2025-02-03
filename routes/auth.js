@@ -9,7 +9,7 @@ auth.post("/register", async (req, res) => {
   const { email, password, role, name, bio, skills, portfolio } = req.body;
 
   if (!email || !password || !role || !name) {
-    return res.status(400).json({ message: "Please provide all the fields" });
+    return res.status(400).json({ message: "Please provide all the details" });
   }
 
   if (!["freelancer", "employer"].includes(role)) {
@@ -66,9 +66,15 @@ auth.post("/register", async (req, res) => {
 auth.post("/login", async (req, res) => {
   const { email, password } = req.body;
 
-  if (!email || !password) {
+  if (!email) {
     return res.status(400).json({
-      message: "Please provide email and password",
+      message: "Please provide email",
+    });
+  }
+
+  if (!password) {
+    return res.status(400).json({
+      message: "Please provide Password",
     });
   }
 
