@@ -12,7 +12,7 @@ getJobProposals.get(
     const {id} = req.params; // job id
      try {
         const proposals = await Proposal.find({job: id})
-
+        
         return res.status(200).json({
             message: "fetched all proposals sucessfully",
             proposals

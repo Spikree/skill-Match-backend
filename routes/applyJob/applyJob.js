@@ -39,6 +39,8 @@ submitProposal.post("/submit/:id", verifyToken, async (req, res) => {
       });
     }
 
+    console.log(user._id)
+    
     const proposal = new Proposal({
       job: id,
       freelancer: user._id,
