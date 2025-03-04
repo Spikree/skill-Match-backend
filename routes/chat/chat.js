@@ -1,53 +1,64 @@
-import express, { Router } from "express";
-import Chat from "../../models/chat";
-import user from "../../models/user";
+import User from "../../models/user";
+import Message from "../../models/chat";
+import express from "express"
 import verifyToken from "../../utils/verifyToken";
 
-const chatRouter = express.Router();
+const message = express.Router();
 
-chatRouter.post('/create', verifyToken, async(req,res) => {
+message.get("/getMessages/:id", verifyToken,async(req,res) => {
+    const {id: userToChatId} = req.params;
+    const myId = req.user._id;
+
     try {
-        const {participantId} = req.body;
-        const {user} = req.user
-
-        const existingChat = await Chat.findOne({
-            participants: {$all : [user._id, participantId]}
-        })
-
-        if(existingChat) {
-            return res.status(200).json(existingChat)
-        }
-
-        const newChat = new Chat({
-            participants: [user._id, participantId],
-            messages: []
+        const messages = await Message.find({
+            $or: [
+                {
+                    senderId: myId,
+                    receiverId: userToChatId,
+                },
+                {
+                    senderId: userToChatId,
+                    receiverId: myId
+                }
+            ]
         });
 
-        await newChat.save();
-        res.status(201).json(newChat);
+        return res.status(200).json({
+            message: "Fetched all messages",
+            messages
+        })
     } catch (error) {
-        res.status(500).json({ message: "Error creating chat, internal server error", error: error.message });
+        console.log("Error in chat, get messages")
+        return res.status(500).json({
+            message: "Internal server error"
+        })
     }
 })
 
-chatRouter.get("/:chatId", verifyToken, async(req,res) => {
+message.post("/sendMessage/:id", verifyToken, async (req,res) => {
+    const {text} = req.body;
+    const {id: receiverId} = req.body;
+    const senderId = req.user._id;
+
     try {
-        const {chatId} = req.params;
-        const {user} = req.user;
+        const newMessage = new Message({
+            senderId,
+            receiverId,
+            text
+        })
 
-        const chat = await Chat.findOne({
-            _id: chatId,
-            participants: userId
-        }).populate('participants', 'name email');
+        await newMessage.save();
 
-        if (!chat) {
-            return res.status(404).json({ message: "Chat not found" });
-        }
-
-        res.status(200).json(chat);
+        return res.status(201).json({
+            message: "Message sent sucessfully",
+            newMessage
+        })
     } catch (error) {
-        res.status(500).json({ message: "Error fetching chat, Internal server error", error: error.message });
+        console.log("Error in send message controller");
+        return res.status(500).json({
+            message: "Internal server error"
+        })
     }
 })
 
-export default chatRouter;
+export default message
