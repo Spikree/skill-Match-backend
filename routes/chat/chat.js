@@ -2,6 +2,7 @@ import User from "../../models/user.js";
 import Message from "../../models/chat.js";
 import express from "express"
 import verifyToken from "../../utils/verifyToken.js";
+import { io, users } from "../../utils/socket.js";
 
 const message = express.Router();
 
@@ -49,6 +50,13 @@ message.post("/sendMessage/:id", verifyToken, async (req,res) => {
         })
 
         await newMessage.save();
+
+        const receiverSockets = users.get(receiverId);
+        if (receiverSockets) {
+            receiverSockets.forEach((socketId) => {
+                io.to(socketId).emit("newMessage", newMessage);
+            });
+        }
 
         return res.status(201).json({
             message: "Message sent sucessfully",
