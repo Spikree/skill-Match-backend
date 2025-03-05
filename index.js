@@ -18,12 +18,13 @@ import fetchCreatedJobs from "./routes/fetchJobs/fetchCreatedJobs.js";
 import review from "./routes/review/review.js";
 import visitProfile from "./routes/usersettings/visitProfileDetails.js";
 import deleteJob from "./routes/deleteJob/deleteJob.js";
+import message from "./routes/chat/chat.js";
+import { app, server } from "./utils/socket.js";
 
 dotenv.config();
 
 connectDb();
 
-const app = express();
 app.use(cors({
   origin: "*",
 }));
@@ -44,7 +45,8 @@ app.use("/job", getOnGoingJob);
 app.use("/job", fetchCreatedJobs);
 app.use("/review", review);
 app.use("/profile",visitProfile);
-app.use("/job", deleteJob)
+app.use("/job", deleteJob);
+app.use("/message",message);
 
 app.use("/", (req, res) => {
   res.json("backend is working");
@@ -52,6 +54,6 @@ app.use("/", (req, res) => {
 
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log(`port running on http://localhost:${PORT}`);
 });

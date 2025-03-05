@@ -1,13 +1,13 @@
-import User from "../../models/user";
-import Message from "../../models/chat";
+import User from "../../models/user.js";
+import Message from "../../models/chat.js";
 import express from "express"
-import verifyToken from "../../utils/verifyToken";
+import verifyToken from "../../utils/verifyToken.js";
 
 const message = express.Router();
 
 message.get("/getMessages/:id", verifyToken,async(req,res) => {
     const {id: userToChatId} = req.params;
-    const myId = req.user._id;
+    const myId = req.user.user._id;
 
     try {
         const messages = await Message.find({
@@ -37,8 +37,9 @@ message.get("/getMessages/:id", verifyToken,async(req,res) => {
 
 message.post("/sendMessage/:id", verifyToken, async (req,res) => {
     const {text} = req.body;
-    const {id: receiverId} = req.body;
-    const senderId = req.user._id;
+    const {id: receiverId} = req.params;
+    const senderId = req.user.user._id
+    
 
     try {
         const newMessage = new Message({
@@ -55,6 +56,7 @@ message.post("/sendMessage/:id", verifyToken, async (req,res) => {
         })
     } catch (error) {
         console.log("Error in send message controller");
+      
         return res.status(500).json({
             message: "Internal server error"
         })
