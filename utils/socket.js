@@ -14,12 +14,16 @@ const io = new Server(server, {
 // Store userId -> Set of socketIds (to handle multiple logins)
 const users = new Map();
 
+// Store individual chat connections
+const chatConnections = new Map();
+
 io.on("connection", (socket) => {
     console.log(`A user connected: ${socket.id}`);
 
     socket.on("join", (userId) => {
         if (!userId) return;
 
+        // Manage user's socket connections
         if (!users.has(userId)) {
             users.set(userId, new Set());
         }
@@ -28,19 +32,10 @@ io.on("connection", (socket) => {
         console.log(`User ${userId} joined with socket ID: ${socket.id}`);
     });
 
-    socket.on("sendMessage", ({ senderId, receiverId, text }) => {
-        if (!receiverId || !text) return;
-
-        const receiverSockets = users.get(receiverId);
-        
-        if (receiverSockets) {
-            receiverSockets.forEach((socketId) => {
-                io.to(socketId).emit("newMessage", { senderId, text });
-            });
-            console.log(`Message sent to ${receiverId}:`, text);
-        } else {
-            console.log(`User ${receiverId} is offline or not connected.`);
-        }
+    socket.on("joinChat", (chatId) => {
+        // Join a specific chat room
+        socket.join(chatId);
+        console.log(`Socket ${socket.id} joined chat room: ${chatId}`);
     });
 
     socket.on("disconnect", () => {
