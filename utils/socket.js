@@ -134,6 +134,25 @@ io.on("connection", (socket) => {
       });
     });
   }
+
+  socket.on("userLogout", (userId) => {
+    if (!userId) return;
+    
+    // Mark user as inactive
+    activeUsers.delete(userId);
+    
+    // Broadcast to all users that this user is now offline
+    io.emit("userActiveStatus", {
+      userId,
+      isActive: false
+    });
+    
+    console.log(`User ${userId} logged out`);
+    
+    // Optionally, you can disconnect their socket
+    // This depends on your app's needs
+    // socket.disconnect(true);
+  });
 });
 
 
